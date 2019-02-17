@@ -14,18 +14,13 @@
 
   
 <script>
-   
-    $(".vote").click(function () {
-        var id = $(this).data("id"),
-            vote_type = $(this).data("vote");
-        $.ajax({
-            url: '/ajax/upvote/',
-            data: {
-                'id': id,
-                'vote_type':vote_type,
-            }
-        });
-    });
+$(document).on("click", ".classbtndelete", function () {
+     var myBookId = $(this).data('id');
+     $(".form-group #delid").val( myBookId );
+     // As pointed out in comments, 
+     // it is superfluous to have to manually call the modal.
+     // $('#addBookDialog').modal('show');
+});
 </script>
 </head>
 <body>
@@ -42,6 +37,7 @@
       <tr>
         <th>Trainer Name</th>
         <th>Description</th>
+        <th>Status</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -53,9 +49,18 @@
                 <input type="hidden" name="idkey" value="{{item.id}}">
                 <td><label for="comment">{{item.user_id}}</label></td> 
                 <td><input type="text" name="desc" value="{{item.desc}}"></td>
+                <td>
+                    <div class="form-group">
+                        <select class="form-control" name="workstatus">
+                            <option class="hidden" selected disabled>work status</option>
+                            <option>In-Progress</option>
+                            <option>Done</option>
+                        </select>
+                    </div>
+                </td>
                 <td><input type="submit" class="btn btn-info" name="btnupdate" value="Update">
                     &nbsp;
-                    <input type="submit" class="btn btn-info" name="btnupdate" value="Delete">
+                    <input type="button" class="classbtndelete btn btn-info"  value="Delete" data-toggle="modal" data-id="{{ item.id }}" data-target="#myModal">
                 </td>
                 </form>
               </tr>
@@ -76,15 +81,15 @@
           
           <!-- Modal body -->
           <div class="modal-body">
-              <form  id="edit" method="POST" action="{% url 'edit' %}" >
+              <form  id="edit" method="POST" action="{% url 'delete' %}" >
                   {% csrf_token %}
               <div class="form-group">
-                  <label for="comment">Description</label>
-                  <textarea class="form-control" rows="5" name="desc" value=""></textarea>
+                  <input type="hidden" name="delkey" id="delid" value=""/>
+                  <label for="comment">Are you sure you want to delete this task ?</label>
               </div>
           <!-- Modal footer -->
           <div class="modal-footer">
-              <input type="submit" class="btn btn-info" value="POST">
+              <input type="submit" name="btndelete" class="btn btn-info" value="YES">
           </div>
               </form>
           </div>

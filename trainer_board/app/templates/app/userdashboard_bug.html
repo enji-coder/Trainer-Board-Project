@@ -15,17 +15,6 @@
   
 <script>
    
-    $(".vote").click(function () {
-        var id = $(this).data("id"),
-            vote_type = $(this).data("vote");
-        $.ajax({
-            url: '/ajax/upvote/',
-            data: {
-                'id': id,
-                'vote_type':vote_type,
-            }
-        });
-    });
 </script>
 </head>
 <body>

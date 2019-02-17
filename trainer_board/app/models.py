@@ -13,3 +13,5 @@ class task(models.Model):
     desc=models.CharField(max_length=300,blank=False)
     created_at= models.DateTimeField(auto_now_add=True,blank=False)
     updated_at = models.DateTimeField(auto_now = True, blank=False)
+    status=models.CharField(max_length=30,blank=False)
+

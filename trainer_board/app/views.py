@@ -46,8 +46,9 @@ def post_task(request):
     obj=task()
     obj.user_id=request.session['name']
     obj.desc=request.POST['desc']
+    obj.status=request.POST['addworkstatus']
     #obj.user_id=user.objects.get(id=request.session['id'])
-    post_task_data=task.objects.create(user_id=obj.user_id,desc=obj.desc)
+    post_task_data=task.objects.create(user_id=obj.user_id,desc=obj.desc,status=obj.status)
     getall=task.objects.all()
     return render(request,"app/dashboard.html",{'getall':getall})
 
@@ -63,13 +64,28 @@ def userdashboard(request):
 #def edit_task(request,pk=None):
  #   if pk:
   #      objdata=task.objects.get(id=pk)
-
 #    return render(request,'app/myfile.html',{'objdata':objdata})
 
 def edit_task(request):
-    id=request.POST['idkey']
-    obj =task.objects.get(id=id)
-    obj.desc=request.POST['desc']
-    obj.save()
-    getall=task.objects.all()
-    return render(request,'app/dashboard.html',{'getall':getall})
+    if 'btnupdate' in request.POST:
+        id=request.POST['idkey']
+        obj =task.objects.get(id=id)
+        obj.desc=request.POST['desc']
+        obj.status=request.POST['workstatus']
+        obj.save()
+        getall=task.objects.all()
+        return render(request,'app/dashboard.html',{'getall':getall})
+    #elif 'btndelete' in request.POST:
+     #   id=request.POST['idkey']
+      #  delete_row = task.objects.get(id=id)
+       # delete_row.delete()
+        #getall=task.objects.all()
+        #return render(request,'app/dashboard.html',{'getall':getall})
+
+
+def delete_task(request):
+        id=request.POST['delkey']
+        delete_row = task.objects.get(id=id)
+        delete_row.delete()
+        getall=task.objects.all()
+        return render(request,'app/dashboard.html',{'getall':getall})
