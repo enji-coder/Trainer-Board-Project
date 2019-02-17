@@ -38,7 +38,7 @@
 
               {% for item in getall %}
               <tr> 
-                  <td>{{ item.username }}</td>
+                  <td>{{ item.user_id }}</td>
                   <td>{{ item.desc }}</td>
                   <td>{{ item.created_at }}</td>
                   <td>{{ item.updated_at }}</td>
@@ -74,8 +74,6 @@
               <form  id="post_task" method="POST" action="{% url 'post_task' %}" >
                   {% csrf_token %}
               <div class="form-group">
-                  <label for="comment">Enter Username</label>
-                  <input type="text" class="form-control" name="username"></input>
                   <label for="comment">Description</label>
                   <textarea class="form-control" rows="5" name="desc"></textarea>
               </div>

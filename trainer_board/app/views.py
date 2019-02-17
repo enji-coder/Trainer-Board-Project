@@ -31,6 +31,8 @@ def login_check(request):
             if u_data.email==email and u_data.password==password:
                 getall=task.objects.all()
                 request.session['name']=u_data.name
+                request.session['id']=u_data.id
+                
                 return render(request,"app/dashboard.html",{'getall':getall,'u_data':u_data})
             else:
                 return render(request,"app/login.html")      
@@ -41,9 +43,10 @@ def login_check(request):
 
 def post_task(request):
     obj=task()
-    obj.user_id=request.POST['username']
+    obj.user_id=request.session['name']
     obj.desc=request.POST['desc']
-    post_task_data=task.objects.create(username=obj.user_id,desc=obj.desc)
+    #obj.user_id=user.objects.get(id=request.session['id'])
+    post_task_data=task.objects.create(user_id=obj.user_id,desc=obj.desc)
     getall=task.objects.all()
     return render(request,"app/dashboard.html",{'getall':getall})
 

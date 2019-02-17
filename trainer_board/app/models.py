@@ -7,8 +7,9 @@ class user(models.Model):
     email=models.EmailField(unique= True)
     password=models.CharField(max_length=30)
 
+
 class task(models.Model):
-    username=models.CharField(max_length=30,blank=True)
+    user_id=models.CharField(max_length=30,blank=True)
     desc=models.CharField(max_length=300,blank=False)
     created_at= models.DateTimeField(auto_now_add=True,blank=False)
     updated_at = models.DateTimeField(auto_now = True, blank=False)
