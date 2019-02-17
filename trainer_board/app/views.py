@@ -2,6 +2,8 @@ from django.shortcuts import render
 from .models import * 
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
+from django.core.mail import send_mail
+
 
 # Create your views here.
 
@@ -72,9 +74,17 @@ def edit_task(request):
         obj =task.objects.get(id=id)
         obj.desc=request.POST['desc']
         obj.status=request.POST['workstatus']
-        obj.save()
-        getall=task.objects.all()
-        return render(request,'app/dashboard.html',{'getall':getall})
+        e_subject="Trainer Board Task updated "
+        name=obj.user_id
+        mydata=user.objects.get(name=name)
+        if mydata:
+            email=mydata.email
+            request.session[email]=email
+            msg="Hello "+request.session['name']+" your task is updated successfully !!"
+            send_mail(e_subject,msg,"anjali.20.learn@gmail.com",[email])
+            obj.save()
+            getall=task.objects.all()
+            return render(request,'app/dashboard.html',{'getall':getall})
     #elif 'btndelete' in request.POST:
      #   id=request.POST['idkey']
       #  delete_row = task.objects.get(id=id)
@@ -86,6 +96,14 @@ def edit_task(request):
 def delete_task(request):
         id=request.POST['delkey']
         delete_row = task.objects.get(id=id)
-        delete_row.delete()
-        getall=task.objects.all()
-        return render(request,'app/dashboard.html',{'getall':getall})
+        
+        name=delete_row.user_id
+        mydata=user.objects.get(name=name)
+        if mydata:
+            email=mydata.email
+            e_subject="Trainer Board Task updated "
+            msg="Hello "+request.session['name']+" your task is deleted successfully !!"
+            send_mail(e_subject,msg,"anjali.20.learn@gmail.com",[email])
+            delete_row.delete()
+            getall=task.objects.all()
+            return render(request,'app/dashboard.html',{'getall':getall})
