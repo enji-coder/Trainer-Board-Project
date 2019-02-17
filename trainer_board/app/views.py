@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import * 
 from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
 
 # Create your views here.
 
@@ -59,3 +60,16 @@ def userdashboard(request):
     #user=task.objects.get(user_id=request.session['id'])
     return render(request,"app/userdashboard.html",{'obj_info':obj_info})
 
+#def edit_task(request,pk=None):
+ #   if pk:
+  #      objdata=task.objects.get(id=pk)
+
+#    return render(request,'app/myfile.html',{'objdata':objdata})
+
+def edit_task(request):
+    id=request.POST['idkey']
+    obj =task.objects.get(id=id)
+    obj.desc=request.POST['desc']
+    obj.save()
+    getall=task.objects.all()
+    return render(request,'app/dashboard.html',{'getall':getall})

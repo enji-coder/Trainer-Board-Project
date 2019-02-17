@@ -12,7 +12,8 @@ urlpatterns = [
     path('register/',views.registeruser,name="registeruser"),
     path('login_user/',views.login_check,name="login_user"),
     path('post/',views.post_task,name="post_task"),
-    path('userdashboard/',views.userdashboard,name="userdashboard")
+    path('userdashboard/',views.userdashboard,name="userdashboard"),
+    path('edit/',views.edit_task,name="edit")
     
 ]
 

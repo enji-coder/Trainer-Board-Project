@@ -48,18 +48,24 @@
     <tbody>
         {% for item in obj_info %}
               <tr> 
-                <form  id="edit" method="POST" action="{% url 'edit' %}" >
-                  {% csrf_token %}
-                <input type="hidden" name="idkey" value="{{item.id}}">
-                <td><label for="comment">{{item.user_id}}</label></td> 
-                <td><input type="text" name="desc" value="{{item.desc}}"></td>
-                <td><input type="submit" class="btn btn-info" name="btnupdate" value="Update">
-                    &nbsp;
-                    <input type="submit" class="btn btn-info" name="btnupdate" value="Delete">
-                </td>
-                </form>
+                  <td>{{ item.user_id }}</td>
+                  <td>{{ item.desc }}</td>
+
+                  <td>
+                      <!--    <button type="button" class="btn btn-primary pull-right"  name="update" data-toggle="modal" 
+                          data-target="#myModal">update</button></a>-->
+
+                      <!--  <a class="btn btn-info" class="open-modal" href=" url 'edit' pk=item.id " >item.id</a> -->
+                      <form  id="edit" method="POST" action="{% url 'edit' %}" >
+                      <input type="text" name="idkey" value="{{item.id}}"> 
+                      <button type="button" class="btn btn-primary pull-right" >Edit</button>
+                      </form>
+                    &nbsp; &nbsp;
+                    <button type="button" class="btn btn-primary pull-right">Delete</button>
+                  </td>
               </tr>
-        {% endfor %}  
+        {% endfor %}
+              
     </tbody>
   </table>
   </div> 
