@@ -11,8 +11,9 @@ urlpatterns = [
     path('registerpage/',views.registerpage,name="registerpage"),
     path('register/',views.registeruser,name="registeruser"),
     path('login_user/',views.login_check,name="login_user"),
-    path('post/',views.post_task,name="post_task")
-       
+    path('post/',views.post_task,name="post_task"),
+    path('userdashboard/',views.userdashboard,name="userdashboard")
+    
 ]
 
 if settings.DEBUG:

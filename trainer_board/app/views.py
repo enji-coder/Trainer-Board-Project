@@ -50,5 +50,12 @@ def post_task(request):
     getall=task.objects.all()
     return render(request,"app/dashboard.html",{'getall':getall})
 
+def user_dash(request):
+    return request(request,"app/dashboard.html")
 
-    
+def userdashboard(request):
+    name=request.session['name']
+    obj_info =task.objects.filter(user_id=name)
+    #user=task.objects.get(user_id=request.session['id'])
+    return render(request,"app/userdashboard.html",{'obj_info':obj_info})
+

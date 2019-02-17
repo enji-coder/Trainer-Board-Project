@@ -35,7 +35,6 @@
             </tr>
           </thead>
           <tbody>
-
               {% for item in getall %}
               <tr> 
                   <td>{{ item.user_id }}</td>
@@ -48,7 +47,7 @@
           </tbody>
         </table>
     <div class="menu pmd-floating-action"  role="navigation"> 
-    <a href="javascript:void(0);" class="pmd-floating-action-btn btn btn-sm pmd-btn-fab pmd-btn-raised pmd-ripple-effect btn-default" data-title="My Task"> 
+    <a href="{% url 'userdashboard' %}" class="pmd-floating-action-btn btn btn-sm pmd-btn-fab pmd-btn-raised pmd-ripple-effect btn-default" data-title="My Task"> 
       <span class="pmd-floating-hidden">supervisor_account</span>
       <i class="material-icons" >assignment</i>
     </a> 
